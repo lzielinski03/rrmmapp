@@ -1,5 +1,5 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
-import {Legajo} from './../legajos/legajo-list';
+//import {Legajo} from './../legajos/legajo-list';
 /*
   Generated class for the LegajoDetallePage page.
 
@@ -10,7 +10,7 @@ import {Legajo} from './../legajos/legajo-list';
   templateUrl: 'build/pages/legajo-detalle/legajo-detalle.html',
 })
 export class LegajoDetallePage {
-  legajo: Legajo;
+  legajo: any;
   constructor(public nav: NavController, params: NavParams) {
     this.legajo = params.get('legajo');
   }

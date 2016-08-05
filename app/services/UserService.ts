@@ -21,17 +21,37 @@ export class UserService {
 		return this.http.post('/auth/login', {'username': username, 'password': password}, true)
 		.map((res) => {
 			let resData:any = res.json();
+			console.log(resData);
 			this.user = new User(username, password, resData.token);
 			return true;
 		}).catch((err:any) => {
-			console.log(err);
-			let alert = Alert.create({
-				title: 'Credenciales invalidas',
-				subTitle: 'El usuario y contraseña ingresado no son correctos.',
-				buttons: ['Ok']
+			let error : string = err.status.toString();
+			let res:any;
+			switch (error) {
+				case '503':
+					res = {
+						title: 'Servicio no disponible.',
+						subTitle: 'El servicio no se encuentra disponible, contacte al administrador.',
+						buttons: ['Ok']
+					}
+					break;
+				case '403':
+					res = {
+						title: 'Credenciales invalidas.',
+						subTitle: 'El usuario y contraseña ingresado no son correctos.',
+						buttons: ['Ok']
+					}
+					break;
+				default:
+					res = {
+						title: 'Error inesperado.',
+						subTitle: 'El usuario y contraseña ingresado no son correctos.',
+						buttons: ['Ok']
+					}
+				}
+				let alert = Alert.create(res);
+				return Observable.throw(alert);
 			});
-			return Observable.throw(alert);
-		});
 	}
 
 	public getCurrentUser():Observable<User> {

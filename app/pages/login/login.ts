@@ -17,12 +17,13 @@ export class LoginPage {
 	password: AbstractControl;
 
 
-	constructor(private userService: UserService, private fb: FormBuilder, public nav: NavController){
+	constructor(private userService: UserService, private fb: FormBuilder, private nav: NavController){
 		this.userService = userService;
+		this.nav = nav;
 
 		this.authForm = fb.group({  
-			'username': ['', Validators.compose([Validators.required, Validators.minLength(8), LoginValidator.checkFirstCharacterValidator])],
-			'password': ['', Validators.compose([Validators.required, Validators.minLength(8), LoginValidator.checkFirstCharacterValidator])]
+			'username': ['', Validators.compose([Validators.required, Validators.minLength(7), LoginValidator.checkFirstCharacterValidator])],
+			'password': ['', Validators.compose([Validators.required, Validators.minLength(7)])]
 		});
 		this.username = this.authForm.controls['username'];
 		this.password = this.authForm.controls['password'];
@@ -32,9 +33,11 @@ export class LoginPage {
 		event.preventDefault();
 		this.userService.authenticate(this.username.value, this.password.value)
 		.subscribe((success) => {
+			console.log(success);
 			if (success) this.nav.push(TabsPage);
 		},
 		(alert:any) => {
+			console.log(alert);
 			this.nav.present(alert);
 		});
 	}

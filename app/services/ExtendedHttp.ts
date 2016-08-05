@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
+import {StorageUtils} from './../utils/storage.utils';
 
 const CONTENT_TYPE_HEADER:string = 'Content-Type';
 const APPLICATION_JSON:string = 'application/json';
-const BACKEND_URL:string = 'http://192.168.1.176:8090';
+const BACKEND_URL:string = 'http://localhost:8090';
 
 @Injectable()
 export class ExtendedHttp {
@@ -18,12 +19,19 @@ export class ExtendedHttp {
 
 	// add token header
 	private createAuthorizationHeader() {
-		this.header.append('Authorization', 'Basic ' + btoa('username:password')); 
+		console.log(StorageUtils.getToken())
+		//this.header.append('Authorization', 'Basic ' + btoa('username:password')); 
+		this.header.append('authorization', StorageUtils.getToken()); 
 	}
 
 	public get(url: string):Observable<Response> {
 		this.createAuthorizationHeader();
-		return this.http.get(url, {headers: this.header});
+		console.log(BACKEND_URL + url);
+		console.log(this.header);
+		this.http.get(BACKEND_URL + url, {headers: this.header}).map((res) => {
+			console.log(res);
+		});
+		return this.http.get(BACKEND_URL + url, {headers: this.header});
 	}
 
 	public post(resource: string, data: any, auth: boolean = false):Observable<Response> {
