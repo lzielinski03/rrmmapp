@@ -1,0 +1,15 @@
+<header-component title='Lista de Solicitudes'></header-component>
+
+<ion-content padding class="legajos">
+
+	<ion-list>
+		<div *ngFor="let process of processes">
+			<ion-list-header center>{{process.name}}</ion-list-header>
+			<ion-item-group *ngFor="let activity of process.activities">
+				<ion-item-divider light>{{activity.name}}</ion-item-divider>
+				<ion-item *ngFor="let instance of activity.instances" (click)="legajoTapped(instance)">{{instance.description}}</ion-item>
+			</ion-item-group>
+		</div>
+	</ion-list>
+
+</ion-content>

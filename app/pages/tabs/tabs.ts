@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {HomePage} from '../home/home';
 import {AboutPage} from '../about/about';
 import {ContactPage} from '../contact/contact';
-import {LegajoList} from '../legajos/legajo-list';
+import {LegajoList} from '../legajos/legajos';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'

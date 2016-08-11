@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Datos de la solicitud </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="legajo-detalle">
+ <div *ngIf="legajo">
+
+  <ion-list>
+    <ion-item>
+      <ion-label>N° Legajo</ion-label>
+      <ion-label item-right>{{legajo.description}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Tipo de compra</ion-label>
+      <ion-label item-right>{{legajo.detail.tipocompra}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Banco de origen</ion-label>
+      <ion-label item-right>{{legajo.detail.bancos}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Fecha</ion-label>
+      <ion-label item-right>--</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Tipo de operación</ion-label>
+      <ion-label item-right>{{legajo.detail.tipoOperacion}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Tipo de legajo</ion-label>
+      <ion-label item-right>--</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Generancia Usuaria</ion-label>
+      <ion-label item-right>{{legajo.detail.gerenciaUsuaria}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Area solicitante</ion-label>
+      <ion-label item-right>{{legajo.detail.areaSolicitante}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Moneda</ion-label>
+      <ion-label item-right>{{legajo.detail.monedaOriginal}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Monto original</ion-label>
+      <ion-label item-right>{{legajo.detail.monto}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Nivel de autorización</ion-label>
+      <ion-label item-right>{{legajo.detail.nivelautorizacion}}</ion-label>
+    </ion-item>
+
+    <ion-item >
+      <ion-label>Producto</ion-label>
+      <ion-label item-right>--</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-item>
+
+    <button danger button large>
+      <ion-icon name="ios-close-circle"></ion-icon>
+      Devolver
+    </button>
+
+    <button button large>
+      <ion-icon name="checkmark-circle"></ion-icon>
+      Elevar
+    </button>
+  </ion-item>
+
+</div>
+</ion-content>

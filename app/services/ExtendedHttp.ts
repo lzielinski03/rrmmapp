@@ -17,26 +17,31 @@ export class ExtendedHttp {
 		this.header.append(CONTENT_TYPE_HEADER, APPLICATION_JSON);
 	}
 
+	intercept(observable: Observable<Response>): Observable<Response> {
+		return observable.catch((err, source) => {
+			return Observable.throw(err);
+		})
+	}
+
 	// add token header
 	private createAuthorizationHeader() {
 		console.log(StorageUtils.getToken())
-		//this.header.append('Authorization', 'Basic ' + btoa('username:password')); 
-		this.header.append('authorization', StorageUtils.getToken()); 
+		this.header.set('authorization', StorageUtils.getToken());
 	}
 
 	public get(url: string):Observable<Response> {
 		this.createAuthorizationHeader();
-		console.log(BACKEND_URL + url);
-		console.log(this.header);
-		this.http.get(BACKEND_URL + url, {headers: this.header}).map((res) => {
-			console.log(res);
-		});
+		return this.intercept(this.http.get(BACKEND_URL + url, {headers: this.header}));
+	}
+/*
+	public get(url: string):Observable<Response> {
+		this.createAuthorizationHeader();
 		return this.http.get(BACKEND_URL + url, {headers: this.header});
 	}
-
+*/
 	public post(resource: string, data: any, auth: boolean = false):Observable<Response> {
 		if (!auth) 
 			this.createAuthorizationHeader();
-		return this.http.post(BACKEND_URL + resource, JSON.stringify(data), {headers: this.header});
+		return this.intercept(this.http.post(BACKEND_URL + resource, JSON.stringify(data), {headers: this.header}));
 	}
 }
